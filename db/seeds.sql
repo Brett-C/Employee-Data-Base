@@ -1,14 +1,14 @@
 
 
 
-INSERT INTO department (id, department_name)
+INSERT INTO departments (id, department_name)
 Values  
 (1, 'Grocery'),
 (2, 'Toys'),
 (3, 'Style'),
 (4, 'Electronics'),
 (5, 'Beauty'),
-(6, 'Essencials');
+(6, 'Essentials');
 
 SELECT * FROM department;
 
@@ -20,7 +20,7 @@ VALUES
 
 SELECT * FROM roles;
 
-INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
+INSERT INTO employees (id, first_name, last_name, role_id, manager_id)
 VALUES  
 ( 1, 'Brett', 'Cannon', 1, 1 ),
 ( 2, 'Justin', 'Hathaway', 1, 1 ),
