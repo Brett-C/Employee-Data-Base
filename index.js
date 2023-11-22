@@ -84,7 +84,7 @@ function homeScreen() {
                         message: "What is the department name?",
                     }
                 ]).then((answer) => {
-                        console.log(`INSERT INTO departments (id, department_name) VALUES (${answer._id}, '${answer.department_name}');`)
+                    console.log(`INSERT INTO departments (id, department_name) VALUES (${answer._id}, '${answer.department_name}');`)
                     db.query(`INSERT INTO departments (id, department_name) VALUES (${answer._id}, '${answer.department_name}');`, function () {
 
                     });
@@ -114,7 +114,7 @@ function homeScreen() {
                         message: "What what department does this Role belong to?",
                         choices: [
                             {
-                                name:'Grocery',
+                                name: 'Grocery',
                                 value: 1
                             },
 
@@ -214,7 +214,7 @@ function homeScreen() {
                     return homeScreen();
                 });
             } else if (answer.homeScreen == "Update an Employee Role") {
-                
+
                 db.query(`SELECT id, first_name, last_name, role_id FROM employees`, function (err, result, fields) {
                     console.table(result);
                     inquirer.prompt([
@@ -228,31 +228,31 @@ function homeScreen() {
                                     value: 1
                                 },
                                 {
-                                    name:'Justin Hathaway',
+                                    name: 'Justin Hathaway',
                                     value: 2
                                 },
                                 {
-                                    name:'Anthony Davis',
+                                    name: 'Anthony Davis',
                                     value: 3
                                 },
                                 {
-                                    name:'Cole Schmirbeck',
+                                    name: 'Cole Schmirbeck',
                                     value: 4
                                 },
                                 {
-                                    name:'Rich Douglas',
+                                    name: 'Rich Douglas',
                                     value: 5
                                 },
                                 {
-                                    name:'Zack Smith',
+                                    name: 'Zack Smith',
                                     value: 6
                                 },
                                 {
-                                    name:'Shiloh Ballard',
+                                    name: 'Shiloh Ballard',
                                     value: 7
                                 },
                                 {
-                                    name:'Allen Cannon',
+                                    name: 'Allen Cannon',
                                     value: 8
                                 }
                             ]
@@ -276,16 +276,29 @@ function homeScreen() {
                                 }
                             ]
                         }
-                    ]) 
-                   db.query(`UPDATE employees SET role_id = ${answer.updated_role} WHERE role_id = ${answer.employee_id};`, function (err, result, fields) {
-                    if (err);
-                    console.log(err)
-                    // console.log("UPDATE employees SET role_id = ${answer.updated_role} WHERE role_id = ${answer.employee_id};")
-                    // console.table(result);
-                   }) 
+                    ]).then((answer2) => {
+                        console.log(`UPDATE employees SET role_id = ${answer2.updated_role} WHERE id = ${answer2.employee_id};`)
+                        db.query(`UPDATE employees SET role_id = ${answer2.updated_role} WHERE id = ${answer2.employee_id};`, function (err, result, fields) {
+                            if (err);
+                            console.log(err)
+                            db.query(`SELECT id, first_name, last_name, role_id FROM employees`, function (err, result, fields) {
+                                console.clear();
+                                console.log('Table updated!')
+                                console.table(result);
+                                return homeScreen();
+                            })
+                            
+                        })
+
+
+                    })
+
+
+
+
                 });
-                // return homeScreen();
-            
+
+
             } else if (answer.homeScreen == "Exit") {
                 console.clear()
                 console.log("Goodbye!")
